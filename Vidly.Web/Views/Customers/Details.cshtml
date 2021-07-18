@@ -1,0 +1,11 @@
+﻿@model Vidly.Web.Models.Customer
+
+<h2>Name: @Model.Name</h2>
+<ul>
+    <li>Membership Type: @Model.MembershipType.Name</li>
+    @if (!Model.BirthDateTime.Equals(null))
+    {
+        <li>Birthdate: @Model.BirthDateTime.Value.ToShortDateString()</li>
+    }
+</ul>
+    
