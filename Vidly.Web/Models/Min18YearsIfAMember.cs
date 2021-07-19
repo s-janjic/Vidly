@@ -13,7 +13,8 @@ namespace Vidly.Web.Models
             // as ObjectInstance is an object, we need to cast to Customer type
             var customer = validationContext.ObjectInstance as Customer;
 
-            if (customer != null && (customer.MembershipTypeId == 0 || customer.MembershipTypeId == 1))
+            if (customer != null && (customer.MembershipTypeId == MembershipType.Unknown || 
+                                     customer.MembershipTypeId == MembershipType.PayAsYouGo))
                 return ValidationResult.Success;
 
             // birthdate is required, if null return error message
