@@ -38,6 +38,7 @@ namespace Vidly.Web.Controllers
 
         // save new customer (post): /Customers/New
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Customer customer)
         {
             // check if validation of the model
