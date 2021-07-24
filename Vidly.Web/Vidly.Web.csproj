@@ -191,7 +191,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Mappers\MappersHelper.cs" />
     <Compile Include="Migrations\202105252044325_InitialModel.cs" />
     <Compile Include="Migrations\202105252044325_InitialModel.Designer.cs">
       <DependentUpon>202105252044325_InitialModel.cs</DependentUpon>
