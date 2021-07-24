@@ -35,5 +35,21 @@ namespace Vidly.Web.Controllers.Api
             // else return customer
             return customer;
         }
+
+        // creating new customer in Db
+        // POST /api/customers
+        [HttpPost]
+        public Customer CreateCustomer(Customer customer)
+        {
+            // check if sent request is valid
+            if (!ModelState.IsValid)
+                throw new HttpResponseException(HttpStatusCode.BadGateway);
+
+            // add customer to the context and save changes
+            _context.Customers.Add(customer);
+            _context.SaveChanges();
+
+            return customer;
+        }
     }
 }
