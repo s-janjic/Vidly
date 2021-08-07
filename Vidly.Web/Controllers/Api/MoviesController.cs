@@ -20,6 +20,7 @@ namespace Vidly.Web.Controllers.Api
         }
 
         // GET /api/movies
+        [HttpGet]
         public IHttpActionResult GetMovies()
         {
             // returning the list of movies and map to DTO
@@ -27,6 +28,7 @@ namespace Vidly.Web.Controllers.Api
         }
 
         // GET /api/movies/1
+        [HttpGet]
         public IHttpActionResult GetMovie(int id)
         {
             // try to get movie from DB
@@ -37,6 +39,28 @@ namespace Vidly.Web.Controllers.Api
                 return NotFound();
 
             return Ok(Mapper.Map<Movie, MovieDto>(movie));
+        }
+
+        // Create a new movie
+        // POST /api/movies
+        [HttpPost]
+        public IHttpActionResult CreateMovie(MovieDto movieDto)
+        {
+            // we check if the mode state is valid
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            // map dto to movie
+            var movie = Mapper.Map<MovieDto, Movie>(movieDto);
+            // add to DB and save changes
+            _context.Movies.Add(movie);
+            _context.SaveChanges();
+
+            // add new ID from movie to dto
+            movieDto.Id = movie.Id;
+
+            // return created status that contains a URI location + new movie ID and context as moviedto
+            return Created(new Uri(Request.RequestUri + "/" + movieDto.Id), movieDto);
         }
     }
 }
