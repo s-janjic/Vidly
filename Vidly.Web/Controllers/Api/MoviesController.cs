@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using AutoMapper;
 using Vidly.Web.Dtos;
@@ -61,6 +59,30 @@ namespace Vidly.Web.Controllers.Api
 
             // return created status that contains a URI location + new movie ID and context as moviedto
             return Created(new Uri(Request.RequestUri + "/" + movieDto.Id), movieDto);
+        }
+
+        // Update an existing movie
+        // PUT /api/movies/1
+        [HttpPut]
+        public void UpdateMovie(int id, MovieDto movieDto)
+        {
+            // check model if isvalid
+            if (!ModelState.IsValid)
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+
+            // try to get movie by id
+            var movie = _context.Movies.SingleOrDefault(m => m.Id == id);
+
+            // check if we found one
+            if (movie == null)
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+
+            // map new values to the existing movie
+            // it will output to the existing movie (as reference to original object in db)
+            // after we save, it will be updated
+            Mapper.Map(movieDto, movie);
+
+            _context.SaveChanges();
         }
     }
 }
