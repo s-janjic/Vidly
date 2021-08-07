@@ -15,14 +15,14 @@ namespace Vidly.Web.Dtos
         [StringLength(255)]
         public string Name { get; set; }
 
-        [Display(Name = "Genre")]
         [Required]
         public byte GenreId { get; set; }
 
-        [Display(Name = "Release Date")]
+        public DateTime DateAdded { get; set; }
+
         public DateTime ReleaseDate { get; set; }
 
-        [Display(Name = "Number in Stock")]
+        [Range(1, 20)]
         public byte NumberInStock { get; set; }
     }
 }
