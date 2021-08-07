@@ -17,6 +17,12 @@ namespace Vidly.Web.App_Start
 
             // map customerdto to customer
             Mapper.CreateMap<CustomerDto, Customer>();
+
+            // map movie to moviedto
+            Mapper.CreateMap<Movie, MovieDto>();
+
+            // map moviedto to movie
+            Mapper.CreateMap<MovieDto, Movie>();
         }
     }
 }
